@@ -2,13 +2,16 @@
 import axios from 'axios';
 
 const API_KEY = '49f03f0b5f584872484e7ae878dad7c6';
-const ROOT_URL = `http://samples.openweathermap.org/data/2.5/forecast?appid=${API_KEY}`;
+const ROOT_URL = `http://api.openweathermap.org/data/2.5/forecast?appid=${API_KEY}`;
+
 
 export const FETCH_WEATHER = 'FETCH_WEATHER';
 
-export function fetchWeather() {
-	const url = `${ROOT_URL}&,us`;
+export function fetchWeather(city) {
+	const url = `${ROOT_URL}&q=${city},us`;
 	const request = axios.get(url);
+
+
 
 	// action creators MUST return an action
 	// an action is an object that ALWAYS has a type 

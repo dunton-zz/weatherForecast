@@ -1,6 +1,9 @@
 // src/containers/search_bar.js
 
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { fetchWeather } from '../actions/index';
 
 class SearchBar extends Component {
 	constructor(props) {
@@ -11,6 +14,7 @@ class SearchBar extends Component {
 		// take existing function, bing it to this (SearchBar)
 		// then reassign it to this.onInputChange
 		this.onInputChange = this.onInputChange.bind(this);
+		this.onFormSubmit = this.onFormSubmit.bind(this);
 	}
 
 	onInputChange(event) {
@@ -21,6 +25,11 @@ class SearchBar extends Component {
 	// prevent browser from trying to submit form
 	onFormSubmit(event) {
 		event.preventDefault();
+
+		// fire action creator to make api event
+		this.props.fetchWeather(this.state.term);
+		//clear search input
+		this.setState({ term: '' });
 	}
 
 	render() {
@@ -40,4 +49,8 @@ class SearchBar extends Component {
 	}
 }
 
-export default SearchBar;
+function mapDispatchToProps(dispatch) {
+	return bindActionCreators({ fetchWeather }, dispatch);
+}
+
+export default connect(null, mapDispatchToProps)(SearchBar);
