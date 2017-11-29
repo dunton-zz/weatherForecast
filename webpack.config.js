@@ -1,4 +1,6 @@
 module.exports = {
+  devtool: 'source-map',
+  debug: true,
   entry: [
     './src/index.js'
   ],
